@@ -1,6 +1,6 @@
 # BIOS512
 
-This is my Git repository to use when TAing for BIOS 512. 
+This is my Git repository to use assisting with BIOS 512. 
 
 ## Course Repositiories:
 NEW: https://github.com/Vincent-Toups/bios512  
