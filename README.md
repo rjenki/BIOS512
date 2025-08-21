@@ -25,8 +25,8 @@ docker run --rm --platform=linux/amd64 -v $(pwd):/app bios512-lecture1
 After running, you should see lecture1.png in the lecture1 folder.
 
 #### Using R Studio
-Before using R Studio, make sure you have your files (data-data.csv, plot-data-data.R) in a ~/BIOS512/lecture1 folder.
-Go into R Studio and make sure the following packages are installed: readr, ggplot2, tidyr.
+Before using R Studio, make sure you have your files (data-data.csv, plot-data-data.R) in a ~/BIOS512/lecture1 folder.  
+Go into R Studio and make sure the following packages are installed: readr, ggplot2, tidyr.  
 Then, open the terminal and type in:
 ```
 Rscript plot-data-data.R
