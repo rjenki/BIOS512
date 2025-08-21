@@ -1,7 +1,7 @@
 FROM r-base:latest
 
 # Install packages
-RUN R -e "install.packages(c('ggplot2', 'readr', 'tidyverse'), repos='https://cloud.r-project.org')"
+RUN R -e "install.packages('tidyverse', repos='https://cloud.r-project.org')"
 
 WORKDIR /app
 COPY plot-data-data.R /app/
