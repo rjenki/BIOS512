@@ -16,4 +16,4 @@ p <- ggplot2::ggplot(df, ggplot2::aes(x = year, y = data_generated)) +
     ) +
     ggplot2::theme_minimal()
 
-ggsave("plot.png", p, width = 6, height = 4)
+ggsave("lecture1.png", p, width = 6, height = 4)
