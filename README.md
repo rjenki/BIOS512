@@ -21,7 +21,7 @@ cd ~/BIOS512/lecture1
 docker build --platform=linux/amd64 -t bios512-lecture1 .
 docker run --rm --platform=linux/amd64 -v $(pwd):/app bios512-lecture1
 ```
-*Notes: In the lecture, R studio is used to run the code. Here, we aren't using R Studio, so I replaced the last line in the plat-data-data.R file with a ggsave.*
+*Notes: In the lecture, R studio is used to run the code. Here, we aren't using R Studio, so I replaced the last line in the plat-data-data.R file with a ggsave.*  
 After running, you should see lecture1.png in the lecture1 folder.
 
 #### Using R Studio
