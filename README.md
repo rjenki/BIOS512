@@ -13,6 +13,9 @@ Using the instructions from https://book.the-turing-way.org/communication/binder
 *I did have to add options(repos = c(CRAN = "https://cran.r-project.org")) to the first line of my install.R file.
 
 ### Lecture 1 Example
+#### Using Binder
+Coming soon!  
+
 #### Using Docker
 Open Docker and go to the terminal and type in the following commands.
 ```
@@ -23,7 +26,7 @@ docker run --rm --platform=linux/amd64 -v $(pwd):/app bios512-lecture1
 ```
 *Notes:*  
 In the lecture, R studio is used to run the code. Here, we aren't using R Studio, so I replaced the last line in the plat-data-data.R file with a ggsave.  
-I have a Mac with a Silicon processor (M1, M2, ...). If you are using something with an Intel processor, then you can use the alternate commands below:  
+I have a Mac with a Silicon processor (M1, M2, ...). **If you are using something with an Intel processor, then you can use the alternate commands below:**
 ```
 git clone -b main https://github.com/rjenki/BIOS512.git ~/BIOS512
 cd ~/BIOS512/lecture1
@@ -31,7 +34,7 @@ docker build -t bios512-lecture1 .
 docker run --rm -v $(pwd):/app bios512-lecture1
 ```
 Essentially, you do not need to specify platform if you have an Intel processor because that is Docker's default.  
-After running, you should see lecture1.png in the lecture1 folder.  
+After running, you should see **lecture1.png** in the lecture1 folder.  
 
 #### Using R Studio
 Before using R Studio, make sure you have your files (data-data.csv, plot-data-data.R) in a ~/BIOS512/lecture1 folder.  
@@ -40,4 +43,4 @@ Then, open the terminal and type in:
 ```
 Rscript plot-data-data.R
 ```
-After running, you should see lecture1.png in the lecture1 folder.
+After running, you should see **lecture1.png** in the lecture1 folder.
