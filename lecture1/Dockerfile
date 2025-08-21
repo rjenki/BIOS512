@@ -1,7 +1,4 @@
-FROM r-base:latest
-
-# Install packages
-RUN R -e "install.packages('tidyverse', repos='https://cloud.r-project.org')"
+FROM rocker/tidyverse:latest
 
 WORKDIR /app
 COPY plot-data-data.R /app/
