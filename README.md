@@ -1,6 +1,6 @@
 # BIOS512
 
-This is my Git repository to use for assisting with BIOS 512. 
+I will be posting the lecture examples and detailed instructions on how to run them on your device. 
 
 ## Course Repositiories:
 NEW: https://github.com/Vincent-Toups/bios512  
