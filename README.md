@@ -14,6 +14,7 @@ Using the instructions from https://book.the-turing-way.org/communication/binder
 
 ### Lecture 1 Example
 #### Using Docker
+Open Docker and go to the terminal and type in the following commands.
 ```
 git clone -b main https://github.com/rjenki/BIOS512.git ~/BIOS512
 cd ~/BIOS512/lecture1
