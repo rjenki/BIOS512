@@ -10,13 +10,14 @@ OLD: https://github.com/chuckpr/BIOS512
 
 ### Binder Set Up
 Using the instructions from https://book.the-turing-way.org/communication/binder/zero-to-binder.html, I set up Binder for this Git repository using the R instructions.  
-*My install.R file was different. See below.
+*Notes:*
+My **install.R** file was different. See below.
 ```
 options(repos = c(CRAN = "https://cran.r-project.org"))
 install.packages(c("readr","ggplot2","tidyr"))
 ```
 #### Important Note
-To add a package and incorporate that into your Binder, you will need to update your install.R file on GitHub and rerun it in Binder. For example, to add the shiny package, you will need to change your install.R file to what is shown below:
+To add a package and incorporate that into your Binder, you will need to update your **install.R** file on GitHub and rerun it in Binder. For example, to add the *shiny* package, you will need to change your **install.R** file to what is shown below:
 ```
 options(repos = c(CRAN = "https://cran.r-project.org"))
 install.packages(c("readr","ggplot2","tidyr","shiny"))
@@ -39,12 +40,12 @@ pipx inject notedown setuptools
 notedown ~/<DIR>/<file>.Rmd --knit > ~/<DIR>/<file>.ipynb
 ```
 *Notes:*  
-*DIR means the directory that your Rmd file is saved in. <file> means the name of the .Rmd file.  
-*Make sure that knitr is installed on your R Studio.
+**DIR** means the directory that your Rmd file is saved in. **file** means the name of the .Rmd file.  
+Make sure that *knitr* is installed on your R Studio.
 
 ### Lecture 1 - Using ggplot with given data
 #### Using Binder
-See the section above and make sure you have the correct install.R file!  
+See the section above and make sure you have the correct **install.R** file!  
 ```
 cd ~/lecture1
 Rscript plot-data-data.R
