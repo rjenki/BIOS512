@@ -1,6 +1,6 @@
 # BIOS512
 
-I will be posting the lecture examples and detailed instructions on how to run them on your device. 
+I will be posting the lecture examples and detailed instructions on how to run them on your device. The first lecture includes multiple ways to run the code. The lectures after will include how to run on Binder for simplicity.
 
 ## Course Repositiories:
 NEW: https://github.com/Vincent-Toups/bios512  
@@ -74,8 +74,13 @@ After running, you should see **lecture1.png** in the lecture1 folder.
 #### Using R Studio
 Before using R Studio, make sure you have your files (data-data.csv, plot-data-data.R) in a ~/BIOS512/lecture1 folder.  
 Go into R Studio and make sure the following packages are installed: readr, ggplot2, tidyr. To install them, click on Tools > Install Packages on the menu at the top of the screen, then type "readr, ggplot2, tidyr".  
+
+
 Then, open the terminal and type in:
 ```
 Rscript plot-data-data.R
 ```
 After running, you should see **lecture1.png** in the lecture1 folder.
+
+### Lecture 2 - Intro to R
+Not posting examples from here because it was intro R. Stay tuned for an Rmd file for that lecture!
