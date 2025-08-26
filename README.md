@@ -10,7 +10,7 @@ OLD: https://github.com/chuckpr/BIOS512
 
 ### Binder Set Up
 Using the instructions from https://book.the-turing-way.org/communication/binder/zero-to-binder.html, I set up Binder for this Git repository using the R instructions.  
-*Notes:*
+*Notes:*  
 My **install.R** file was different. See below.
 ```
 options(repos = c(CRAN = "https://cran.r-project.org"))
