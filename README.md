@@ -12,6 +12,23 @@ OLD: https://github.com/chuckpr/BIOS512
 Using the instructions from https://book.the-turing-way.org/communication/binder/zero-to-binder.html, I set up Binder for this Git repository using the R instructions.  
 *I did have to add options(repos = c(CRAN = "https://cran.r-project.org")) to the first line of my install.R file.
 
+### Converting .Rmd files to .ipynb
+*You may not need this! But, here it is if you do...*
+Open the terminal on your computer and type in the following commands. 
+*<DIR> means the directory that your Rmd file is saved in. <file> means the name of the .Rmd file.
+```
+python3 --version
+brew install pipx
+pipx ensurepath
+source ~/.zshrc
+pipx install notedown
+pipx inject notedown setuptools
+notedown ~/<DIR>/<file>.Rmd --knit > ~/<DIR>/<file>.ipynb
+```
+*Notes:* 
+*<DIR> means the directory that your Rmd file is saved in. <file> means the name of the .Rmd file.
+*Make sure that knitr is installed on your R Studio.
+
 ### Lecture 1 - Using ggplot with given data
 #### Using Binder
 Coming soon!  
