@@ -11,7 +11,7 @@ OLD: https://github.com/chuckpr/BIOS512
 ### Binder Set Up
 Using the instructions from https://book.the-turing-way.org/communication/binder/zero-to-binder.html, I set up Binder for this Git repository using the R instructions.  
 *Notes:*  
-My **install.R** file was different. See below.
+My **install.R** file included more packages, which we will need for the course. See below. If we use packages that I did not include here, I will update this!  
 ```
 options(repos = c(CRAN = "https://cran.r-project.org"))
 install.packages(c("readr","ggplot2","tidyr"))
