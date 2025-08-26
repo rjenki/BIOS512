@@ -11,7 +11,7 @@ OLD: https://github.com/chuckpr/BIOS512
 ### Binder Set Up
 Using the instructions from https://book.the-turing-way.org/communication/binder/zero-to-binder.html, I set up Binder for this Git repository using the R instructions.  
 *Notes:*  
-My **install.R** file included more packages, which we will need for the course. See below. If we use packages that I did not include here, I will update this!  
+My **install.R** file included more packages, which we will need for the course. See below.
 ```
 options(repos = c(CRAN = "https://cran.r-project.org"))
 install.packages(c("readr","ggplot2","tidyr"))
@@ -26,6 +26,7 @@ Then, you will need to open Binder and go to the terminal and type the following
 ```
 Rscript install.R
 ```
+If I add a package in order to run example code, I will specify that in the notes.  
 
 ### Converting .Rmd files to .ipynb
 *You may not need this! But, here it is if you do...*  
