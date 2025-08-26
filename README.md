@@ -10,7 +10,21 @@ OLD: https://github.com/chuckpr/BIOS512
 
 ### Binder Set Up
 Using the instructions from https://book.the-turing-way.org/communication/binder/zero-to-binder.html, I set up Binder for this Git repository using the R instructions.  
-*I did have to add options(repos = c(CRAN = "https://cran.r-project.org")) to the first line of my install.R file.
+*My install.R file was different. See below.
+```
+options(repos = c(CRAN = "https://cran.r-project.org"))
+install.packages(c("readr","ggplot2","tidyr"))
+```
+#### Important Note
+To add a package and incorporate that into your Binder, you will need to update your install.R file on GitHub and rerun it in Binder. For example, to add the shiny package:
+```
+options(repos = c(CRAN = "https://cran.r-project.org"))
+install.packages(c("readr","ggplot2","tidyr","shiny"))
+```
+Then, you will need to open Binder and go to the terminal and type the following.
+```
+Rscript install.R
+```
 
 ### Converting .Rmd files to .ipynb
 *You may not need this! But, here it is if you do...*  
@@ -30,7 +44,12 @@ notedown ~/<DIR>/<file>.Rmd --knit > ~/<DIR>/<file>.ipynb
 
 ### Lecture 1 - Using ggplot with given data
 #### Using Binder
-Coming soon!  
+See the section above and make sure you have the correct install.R file!  
+```
+cd ~/lecture1
+Rscript plot-data-data.R
+```
+After running, on the side panel, you can navigate to the lecture1 folder and you should see **lecture1.png** in the lecture1 folder.  
 
 #### Using Docker
 Open Docker and go to the terminal and type in the following commands.
