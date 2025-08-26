@@ -1,6 +1,6 @@
 library(readr)
 library(ggplot2)
-library(tidyverse)
+library(tidyr)
 
 # Load data
 df <- readr::read_csv("data-data.csv")
