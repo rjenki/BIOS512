@@ -83,4 +83,4 @@ Rscript plot-data-data.R
 After running, you should see **lecture1.png** in the lecture1 folder.
 
 ### Lecture 2 - Intro to R
-Not posting examples from here because it was intro R. Stay tuned for an Rmd file for that lecture!
+Not posting examples from here because it was intro to R, however, you can launch the Rmd file in your Binder and run the code chunks to see the output.
