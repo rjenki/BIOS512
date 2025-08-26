@@ -15,7 +15,7 @@ Using the instructions from https://book.the-turing-way.org/communication/binder
 ### Converting .Rmd files to .ipynb
 *You may not need this! But, here it is if you do...*  
 Open the terminal on your computer and type in the following commands.  
-*<DIR> means the directory that your Rmd file is saved in. <file> means the name of the .Rmd file.  
+*DIR means the directory that your Rmd file is saved in. file means the name of the .Rmd file.  
 ```
 python3 --version
 brew install pipx
