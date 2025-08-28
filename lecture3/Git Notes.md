@@ -13,8 +13,54 @@ Git as a tool rewards the user most when they use it at the deepest level. For t
 **main:** most important branch
 **git commit:** saves file changes to the main branch
 **git add:** used to add changes from the working directory to the staging area
-**git log:**
+**git log:** gives project history
+**git diff:** compares current, unsaved changes to the main branch
+**git trinity:** the branch (& its HEAD), the staging area, and the working copy
+**branch:** the current state of the repository at the HEAD of the last branch
+**staging area:** the changes that will become the next commit
+**working copy:** what is in the directory where you are working
+**ssh key pair:** like a digital identity or password - two cryptographically linked files: a public key and a private key
 
+## Making a repo
+### Step 1. Create your repository locally. 
+Creating a new repository on the command line.
+```
+mkdir <folder>
+cd <folder>
+echo "<Your text...>" >> README.md # if you want this to be fancier, you can use the example from the git add section.
+git init
+git add README.md
+git commit -m "First commit"
+git branch -M main
+git remote add origin git@github.com:<user>/<folder>.git
+git push -u origin main
+```
+Push an existing repository from the command line.
+```
+cd <folder>
+git remote add origin git@github.com:<user>/<folder>.git
+git push -u origin main
+```
+### Step 2. Generate your SSH key.
+Don't do this in your git repo - keep it private.
+```
+cd /tmp/
+$ mkdir ssh-keys
+$ cd ssh-keys/
+$ ssh-keygen
+```
+This will generate two files (.pub file is the PUBLIC key). This is the key you can upload to github. 
+### Step 3. Upload your SSH key to GitHub.
+1. Go to GitHub on your browser.
+2. Select Settings > SSH and GPG Keys > New SSH Key.
+3. Add the title (helpful to name it based on the device where the private key is stored).
+4. Open the public key file on your computer and copy it carefully into the text box.
+5. Go back to your terminal and type:
+```
+ssh-add /tmp/ssh-keys/github_rsa_key
+git remote add origin git@github.com:<user>/<folder>.git
+git push -u origin main  
+```
 ## Important Commands
 ### git Clone
 ```
@@ -27,10 +73,8 @@ git clone git@github.com:rjenki/BIOS512.git
 ```
 ### git init
 ```
-cd /tmp/
-rm -rf example
-mkdir example
-cd example
+mkdir <folder>
+cd <folder>
 git init --initial-branch main
 ```
 ### git status
@@ -63,11 +107,13 @@ Then, use git status to double check that this worked.
 ```
 git status
 ```
-
-**MORE COMING SOON...**
-
-
-
-
-
-
+### git log
+This will give you the history of your project.
+```
+git log
+```
+### gif diff
+This will show the exact lines that differ in your local repo to the main branch.
+```
+git diff
+```
