@@ -86,3 +86,6 @@ After running, you should see **lecture1.png** in the lecture1 folder.
 
 ### Lecture 2 - Intro to R
 Not posting examples from here because it was intro to R, however, you can launch the Rmd file in your Binder and run the code chunks to see the output.
+
+### Lecture 3 - Intro to Git
+Uploaded a summary notes file with key words, important commands, and how to set up your git repository. *Follow those instructions to set yours up!*
