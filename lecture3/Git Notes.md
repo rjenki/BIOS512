@@ -18,7 +18,7 @@ Git as a tool rewards the user most when they use it at the deepest level. For t
 **git trinity:** the branch (& its HEAD), the staging area, and the working copy  
 **branch:** the current state of the repository at the HEAD of the last branch  
 **staging area:** the changes that will become the next commit
-**working copy:** what is in the directory where you are working
+**working copy:** what is in the directory where you are working  
 **ssh key pair:** like a digital identity or password - two cryptographically linked files: a public key and a private key
 
 ## Making a repo
