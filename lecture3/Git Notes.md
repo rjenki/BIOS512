@@ -10,13 +10,13 @@ Git as a tool rewards the user most when they use it at the deepest level. For t
 **git clone:** point to an existing repo and make a clone or copy of that repo at in a new directory, at another location (like a local folder on your computer)  
 **git init:** creates a new git repo  
 **git status:** list which files are staged, unstaged, and untracked  
-**main:** most important branch
-**git commit:** saves file changes to the main branch
-**git add:** used to add changes from the working directory to the staging area
-**git log:** gives project history
-**git diff:** compares current, unsaved changes to the main branch
-**git trinity:** the branch (& its HEAD), the staging area, and the working copy
-**branch:** the current state of the repository at the HEAD of the last branch
+**main:** most important branch  
+**git commit:** saves file changes to the main branch  
+**git add:** used to add changes from the working directory to the staging area  
+**git log:** gives project history  
+**git diff:** compares current, unsaved changes to the main branch  
+**git trinity:** the branch (& its HEAD), the staging area, and the working copy  
+**branch:** the current state of the repository at the HEAD of the last branch  
 **staging area:** the changes that will become the next commit
 **working copy:** what is in the directory where you are working
 **ssh key pair:** like a digital identity or password - two cryptographically linked files: a public key and a private key
