@@ -89,3 +89,11 @@ Not posting examples from here because it was intro to R, however, you can launc
 
 ### Lecture 3 - Intro to Git
 Uploaded a summary notes file with key words, important commands, and how to set up your git repository. *Follow those instructions to set yours up!*
+
+### Lecture 4 - Intro to Tidyverse
+Here's how to run the example code.
+1. Click on the Binder link on my repo and let it load. 
+2. Open R Studio.
+3. Install the tidyverse and rmarkdown packages.
+4. Navigate to the lecture4 folder, and click on the tidyverse_examples.Rmd file.  
+5. You can either run the chunks individually, or click Run -> Run all chunks below.
