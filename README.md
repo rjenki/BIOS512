@@ -9,12 +9,23 @@ OLD: https://github.com/chuckpr/BIOS512
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/rjenki/BIOS512/HEAD)
 
 ### Binder Set Up
-Using the instructions from https://book.the-turing-way.org/communication/binder/zero-to-binder.html, I set up Binder for this Git repository using the R instructions.  
+Using the instructions, ***with the changes below***, from https://book.the-turing-way.org/communication/binder/zero-to-binder.html, I set up Binder for this Git repository using the R instructions.  
 *Notes:*  
+To have the most up to date version of R, please use the following for your **runtime.txt** file.
+```
+r-4.3-2023-06-15
+```
 My **install.R** file included more packages, which we will need for the course. See below.
 ```
 options(repos = c(CRAN = "https://cran.r-project.org"))
-install.packages(c("readr","ggplot2","tidyr","tidyverse","rmarkdown"))
+install.packages(c("tidyverse", "rmarkdown"), dependencies = TRUE)
+```
+Additionally, due to the `tidyverse` dependencies, I had to make a **apt.txt** file with the following:
+```
+libxml2-dev
+libcurl4-openssl-dev
+libssl-dev
+libicu-dev
 ```
 #### Important Note
 To add a package and incorporate that into your Binder, you will need to update your **install.R** file on GitHub and rerun it in Binder. For example, to add the *shiny* package, you will need to change your **install.R** file to what is shown below:
