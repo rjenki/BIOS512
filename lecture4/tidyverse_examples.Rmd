@@ -1,0 +1,426 @@
+---
+title: "lecture4_code"
+author: "Rebecca Jenkins"
+date: "2025-08-28"
+output: pdf_document
+---
+
+# Lecture 4: Intro To Tidyverse
+
+## Set up...
+
+Let's set things up to run the way we want.\
+1. We need to load the `tidyverse` library so we can use the tools within it.\
+2. Check if a folder named **intermediate** exists in your working directory. If not, create that folder.\
+3. Define a helper function `mdpre()` only if it doesn’t already exist. The function just prints whatever you pass in.\
+4. Define another helper function `ggmd` that takes a ggplot object (or any plot) and just prints it.
+
+```{r}
+library(tidyverse) # step 1
+if (!dir.exists("intermediate")) dir.create("intermediate", recursive = TRUE) # step 2
+if (!exists("mdpre")) mdpre <- function(x) { print(x) } # step 3
+if (!exists("ggmd"))  ggmd  <- function(p) { print(p) } # step 4
+```
+
+## Read the CSV
+
+What we're doing:\
+1. Loading the `tidyverse` library.\
+2. Open the data set using `readr` (part of `tidyverse`) and store it in a tibble called **df**.\
+3. Save the data set **df** into a serialized R object file (.rds) inside your **intermediate** folder.
+
+```{r}
+df_raw <- read_csv("~/BIOS512/lecture4/character-data.csv");
+mdpre(df_raw)
+saveRDS(df_raw, file = "intermediate/df_raw.rds")
+```
+
+*Note:* `readr` tries to guess the appropriate data types for each column by examining the first few values in each column and trying to parse them and then coercing the rest. 3. Use the `mdpre` helper function to print the tibble.
+
+### Manually specifying data type for columns
+
+The col_types argument overrides readr’s automatic guessing and tells read_csv() exactly how to interpret each column.
+
+```{r}
+df <- read_csv("~/BIOS512/lecture4/character-data.csv", col_types = cols(
+  Name = col_character(), #forces column to text
+  Universe = col_character(), #forces column to text
+  Teams = col_character(), #forces column to text
+  "Weight (kg)" = col_character(), #forces column to text
+  Identity = col_character(), #forces column to text
+  Gender = col_character(), #forces column to text
+  "Marital Status" = col_character(), #forces column to text
+  URL = col_character(), #forces column to text
+  Creators = col_character() #forces column to text
+  ))
+mdpre(df)
+saveRDS(df, file = "intermediate/df_typed.rds")
+```
+
+*Note:* Check the first tibble versus the tibble we just made. Specifically, notice that we specified Weight to be a character variable when we did it manually, but without specifying it is a dbl (double (numeric, floating-point)) variable.
+
+## Checking out our data
+
+### Getting counts for a variable
+
+The using the same **df** as above, we're asking for a print out of the count of each Team value, in decreasing order.\
+*Note:* Because this is a large data set, I used the `head()` function to print the first 15 observations. You could use `mdpre(sort(table(df$Teams), decreasing=TRUE))` to get the full list.
+
+```{r}
+mdpre(head(sort(table(df$Teams), decreasing=TRUE), 15)) 
+```
+
+### Getting a data set with the same value for a specific variable
+
+For this, we're pulling all the observations with `Teams=="Earth-Four"` and putting them into a tibble.
+
+```{r}
+just_earth_four <- filter(df, Universe=="Earth-Four")
+saveRDS(just_earth_four, file = "intermediate/just_earth-four.rds")
+mdpre(just_earth_four)
+```
+
+*Notes:* We are using tidy evaluation - Teams isn't in our environment, its in the data frame df. We are doing a vector-wise comparison of Teams to "Batman". The expression `Teams=="Earth-Four"` produces a boolean array. The True indexes are returned and the False indexes are thrown away.
+
+Then, we can look at the unique name values in the **just_earth_four** dataset.
+
+```{r}
+if (file.exists("intermediate/just_earth_four.rds")) {
+  just_earth_four <- readRDS("intermediate/just_earth_four.rds")
+}
+mdpre(table(just_earth_four$"Marital Status"));
+```
+
+Immediately, we can see an error. What does *Good* mean in regards to martial status? Let's print all of the Martial Status values and their counts in a tibble.
+
+```{r}
+mdpre(arrange(tally(group_by(just_earth_four, `Marital Status`)),n))
+```
+
+We see there's only one with Good as the Martial Status value. Let's check out that specific observation.
+
+```{r}
+mdpre(filter(just_earth_four, `Marital Status`=="Good"));
+```
+
+From checking our source, [https://dc.fandom.com/wiki/Daniel_Garrett\_(Earth-Four)](https://dc.fandom.com/wiki/Daniel_Garrett_(Earth-Four)){.uri}, we see that Daniel Garrett's martial status is listed this way on the website, so it's just a mistake instead of a error from reading the CSV.
+
+### Removing duplicates
+
+We'll make a `simplify_strings` function that allows us to simplify all the columns of our data set and then take the unique values.
+
+```{r}
+simplify_strings <- function(s){
+    s %>% 
+        str_to_lower() %>%
+        str_trim() %>%
+        str_replace_all("[^a-z1-9]+","_") %>%
+        str_replace_all("^_+","") %>%
+        str_replace_all("_+$","");
+}
+mdpre(simplify_strings(c(" ha", "ha! ", "aha!ha", "aha ha")))
+
+df <- readRDS("intermediate/df_typed.rds")
+
+names(df) <- simplify_strings(names(df)); ## simplify our column names
+                                          ## as well
+
+deduplicated <- df %>% mutate(across(everything(), simplify_strings)) %>%
+    distinct();
+mdpre(sprintf("Before simplification and deduplication: %d, after %d (%0.2f %% decrease)",
+              nrow(df),
+              nrow(deduplicated),
+              100-100*nrow(deduplicated)/nrow(df)));
+saveRDS(deduplicated, file = "intermediate/deduplicated.rds")
+```
+
+This removed 5 observations. Now we'll check the genders.\
+Then, we'll clean up the gender and marital status variable.\
+1. Define valid genders and martial statuses.\
+2. Filter deduplicated data for only those values.\
+3. Summarize counts by value and display.\
+4. Save the filtered dataset.\
+
+```{r}
+non_erroneous_genders <- c("intersex", "non_binary", "genderless", "female", "male")
+non_erroneous_marital <- c("engaged", "widowed", "married", "single")
+
+tidied_data <- deduplicated %>%
+  filter(gender %in% non_erroneous_genders,
+         marital_status %in% non_erroneous_marital)
+
+mdpre(
+  tidied_data %>%
+    group_by(gender) %>%
+    tally() %>%
+    arrange(desc(n))
+)
+
+mdpre(
+  tidied_data %>%
+    group_by(marital_status) %>%
+    tally() %>%
+    arrange(desc(n))
+)
+
+saveRDS(tidied_data, file = "intermediate/tidied_data.rds")
+```
+
+Then, we'll look at the other variables.\
+1. Make a list of the columns to count for. 2. Initialize an empty list to store counts. 3. Print one example (like your mdpre usage). 4. Save all counts.
+
+```{r}
+cols_to_count <- c("name", "universe", "url", "identity", "gender",
+                   "marital_status", "teams", "weight_kg", "creators")
+
+value_counts <- list()
+
+for (col in cols_to_count) {
+  value_counts[[col]] <- tidied_data %>%
+    group_by(across(all_of(col))) %>%
+    tally() %>%
+    arrange(n)
+}
+
+mdpre(value_counts$identity)
+mdpre(value_counts$teams)
+mdpre(value_counts$weight)
+mdpre(value_counts$creators)
+mdpre(value_counts$universe)
+mdpre(value_counts$gender)
+mdpre(value_counts$marital_status)
+
+saveRDS(value_counts, file = "intermediate/value_counts.rds")
+```
+
+We also see some weird values with n=1 in the universe variable, so we'll remove all observations with n≤10. (This could be done more delicately, but this is what we'll do for now.)\
+1. Initialize list to store ok values. 2. Filter only values with counts \>= 10 for the 'universe' column. 3. Display the result. 4. Save the filtered list
+
+```{r}
+ok_values <- list()
+
+ok_values <- value_counts$universe %>%
+  filter(n >= 10) %>%
+  pull(1)
+
+mdpre(ok_values)
+
+saveRDS(ok_values, file = "intermediate/ok_values.rds")
+```
+
+Now, we'll use these values to filter our dataset.
+
+```{r}
+tidied_data <- readRDS("intermediate/tidied_data.rds")
+ok_values <- readRDS("intermediate/ok_values.rds")
+clean_data <- tidied_data %>% filter(universe %in% ok_values);
+
+mdpre(sprintf("Before removing weird universe values: %d, after %d (%0.2f %% decrease)",
+              nrow(tidied_data),
+              nrow(clean_data),
+              100-100*nrow(clean_data)/nrow(tidied_data)));
+
+saveRDS(clean_data, file = "intermediate/clean_data.rds")
+```
+
+### Joins
+
+This is a trivial example of an inner join.
+
+```{r}
+universe_counts <- value_counts$universe
+joined <- clean_data %>% inner_join(universe_counts, by="universe");
+mdpre(joined)
+saveRDS(joined, file = "intermediate/joined.rds")
+```
+
+This allowed us to add the count of the universe to each row.
+
+### Pivots
+
+This dataset is already in the wide form, so I'll show how to pivot longer instead of wider.
+
+```{r}
+gender_marital_long <- clean_data %>%
+  pivot_longer(
+    cols = c(gender, marital_status),  # columns to pivot
+    names_to = "property_name",        # new column for the variable names
+    values_to = "value"                # new column for the values
+  )
+
+mdpre(head(gender_marital_long))
+
+mdpre(
+ gender_marital_long %>%
+    group_by(value) %>%
+    tally() %>%
+    arrange(desc(n))
+)
+
+saveRDS(gender_marital_long, file = "intermediate/gender_marital_long.rds")
+```
+
+Now, we can undo this by pivoting longer.
+
+```{r}
+gender_marital_wide <- gender_marital_long %>%
+  pivot_wider(
+    id_cols = name:universe,   # columns to keep as identifiers
+    names_from = 'property_name',     # create new columns from property_name
+    values_from = 'value',             # fill with value
+    values_fn = ~ .x[1]  # take first value if duplicates exist
+  )
+
+mdpre(head(gender_marital_wide))
+
+saveRDS(gender_marital_wide, file = "intermediate/gender_marital_wide.rds")
+```
+
+## Analysis
+
+Does gender correlate with marital status in comics?
+
+```{r}
+status_counts <- gender_marital_wide %>%
+    group_by(gender, marital_status) %>%
+    tally();
+status_counts
+saveRDS(status_counts, file = "intermediate/status_counts.rds")
+
+gender_counts <- gender_marital_wide %>%
+    group_by(gender) %>%
+    tally();
+gender_counts
+saveRDS(gender_counts, file = "intermediate/gender_counts.rds")
+
+status_counts <- readRDS("intermediate/status_counts.rds")
+gender_counts <- readRDS("intermediate/gender_counts.rds")
+status_probs <- status_counts %>%
+    left_join(gender_counts, by="gender", suffix=c("",".gender")) %>%
+    mutate(p=n/n.gender)
+saveRDS(status_probs, file = "intermediate/status_probs.rds")
+
+status_probs_filtered <- status_probs %>%
+    filter(gender %in% c("male","female") & marital_status %in% c("single","married","engaged","widowed")) %>%
+    arrange(desc(p));
+saveRDS(status_probs_filtered, file = "intermediate/status_probs_filtered.rds")
+```
+
+## ggplot
+
+### Bar chart
+
+Let's plot what we just calculated.
+
+```{r}
+ggmd(ggplot(status_probs_filtered, aes(marital_status, p)) +
+    geom_bar(aes(fill=gender), stat="identity", position="dodge"))
+```
+
+Adding titles...
+
+```{r}
+ggmd(ggplot(status_probs_filtered, aes(marital_status, p)) +
+    geom_bar(aes(fill=gender), stat="identity", position="dodge") +
+    labs(x="Marital Status",y="Probability",title="Gender and Marriage in Comics"));
+```
+
+### Histogram
+
+Let's make a histogram based on the data from earlier.
+
+```{r}
+ggmd(
+  ggplot(gender_marital_wide %>%
+           filter(gender %in% c("male","female"),
+                  marital_status %in% c("single","married","engaged","widowed")),
+         aes(x = marital_status, fill = gender)) +
+    geom_histogram(stat = "count", position = "dodge") +
+    labs(x="Marital Status", y="Count", title="Histogram: Gender and Marriage in Comics") +
+    theme(axis.text.x = element_text(angle = 90))
+)
+```
+
+```{r}
+counts_in_order <- gender_marital_wide %>% group_by(marital_status) %>%
+    tally() %>%
+    arrange(desc(n),marital_status) %>% `[[`("marital_status");
+
+ggmd(
+  ggplot(
+    gender_marital_wide %>%
+      filter(gender %in% c("male","female"),
+             marital_status %in% c("single","married","engaged","widowed")),
+    aes(x = factor(marital_status, levels = counts_in_order), fill = gender)
+  ) +
+    geom_bar(position = "dodge") +
+    theme(axis.text.x = element_text(angle = 90)) +
+    labs(x = "Marital Status", y = "Count", title = "Sorted Histogram: Gender and Marriage in Comics")
+)
+```
+
+### Scatter plot
+
+In this data set, the only numeric variable was weight. Also - note I'm using the raw data frame because we manually set the other one to have weight as a numeric variable, which is why I needed the extra filtering. The position_jitter part is to spread out the data and make it more readable.
+
+```{r}
+ggmd(
+  ggplot(
+    df_raw %>%
+      filter(tolower(Gender) %in% c("male", "female")) %>%  # normalize to lowercase
+      mutate(Gender = tolower(Gender)),                     # ensure x-axis uses lowercase
+    aes(x = Gender, y = `Weight (kg)`)
+  ) +
+    geom_point(aes(color = Gender), alpha = 0.6, position = position_jitter(width = 0.2)) +
+    labs(x = "Gender", y = "Weight (kg)", title = "Scatterplot of Gender vs. Weight (kg)")
+)
+```
+
+Notice we have some outliers, which makes this hard to read. We'll restrict the y-axis.
+
+```{r}
+ggmd(
+  ggplot(
+    df_raw %>%
+      filter(tolower(Gender) %in% c("male", "female")) %>%  # normalize to lowercase
+      mutate(Gender = tolower(Gender)),                     # ensure x-axis uses lowercase
+    aes(x = Gender, y = `Weight (kg)`)
+  ) +
+    geom_point(aes(color = Gender), alpha = 0.6, position = position_jitter(width = 0.2)) +
+    labs(x = "Gender", y = "Weight (kg)", title = "Scatterplot of Gender vs. Weight (kg)") +
+    coord_cartesian(ylim = c(0, 800))
+)
+```
+
+### Box plot
+
+Let's represent this as a box plot.
+
+```{r}
+ggmd(
+  ggplot(
+    df_raw %>%
+      filter(`Weight (kg)` < 850, tolower(Gender) %in% c("male", "female")) %>% 
+      mutate(Gender = tolower(Gender)), 
+    aes(x = Gender, y = `Weight (kg)`)
+  ) +
+    geom_boxplot(aes(color = Gender)) +
+  labs(x = "Gender", y = "Weight (kg)", title = "Box Plot of Weight by Gender") 
+)
+```
+
+### Density plot
+Now, a density plot!
+```{r}
+ggmd(
+  ggplot(
+    df_raw %>%
+      filter(`Weight (kg)` < 850, tolower(Gender) %in% c("male", "female")) %>% 
+      mutate(Gender = tolower(Gender)), 
+    aes(x = `Weight (kg)`, fill = Gender)
+  ) +
+    geom_density(alpha = 0.5) +
+    labs(x = "Weight (kg)", y = "Density", title = "Density Plot of Weight by Gender")
+)
+```
+
