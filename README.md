@@ -14,7 +14,7 @@ Using the instructions from https://book.the-turing-way.org/communication/binder
 My **install.R** file included more packages, which we will need for the course. See below.
 ```
 options(repos = c(CRAN = "https://cran.r-project.org"))
-install.packages(c("readr","ggplot2","tidyr"))
+install.packages(c("readr","ggplot2","tidyr","tidyverse","rmarkdown"))
 ```
 #### Important Note
 To add a package and incorporate that into your Binder, you will need to update your **install.R** file on GitHub and rerun it in Binder. For example, to add the *shiny* package, you will need to change your **install.R** file to what is shown below:
@@ -92,8 +92,8 @@ Uploaded a summary notes file with key words, important commands, and how to set
 
 ### Lecture 4 - Intro to Tidyverse
 Here's how to run the example code.
-1. Click on the Binder link on my repo and let it load. 
-2. Open R Studio.
-3. Install the tidyverse and rmarkdown packages.
+1. Update your install.R file to include rmarkdown and tidyverse if it didn't have it already. (You can copy mine!)
+2. Click on the Binder link on my repo and let it load. 
+3. Open R Studio.
 4. Navigate to the lecture4 folder, and click on the tidyverse_examples.Rmd file.  
 5. You can either run the chunks individually, or click Run -> Run all chunks below.
