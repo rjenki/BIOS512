@@ -13,7 +13,5 @@ We will use Tidyverse to help us with these issues!
 `readr`: loads a file into a data frame  
 `dplyr`: R package for data manipulation  
 `tibble`: `dplyr`'s more efficient data frame class (like table)  
-
-**MORE COMING SOON!**
-
-
+`magrittr`: part of the tidyverse that allows us to build pipelines
+`%>%`: binary operator that stitches together its arguments - super useful!
