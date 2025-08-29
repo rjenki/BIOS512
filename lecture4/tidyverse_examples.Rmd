@@ -16,7 +16,7 @@ Let's set things up to run the way we want.\
 4. Define another helper function `ggmd` that takes a ggplot object (or any plot) and just prints it.
 
 ```{r}
-library(tidyr) # step 1
+library(tidyverse) # step 1
 if (!dir.exists("intermediate")) dir.create("intermediate", recursive = TRUE) # step 2
 if (!exists("mdpre")) mdpre <- function(x) { print(x) } # step 3
 if (!exists("ggmd"))  ggmd  <- function(p) { print(p) } # step 4
