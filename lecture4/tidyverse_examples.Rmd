@@ -30,7 +30,7 @@ What we're doing:\
 3. Save the data set **df** into a serialized R object file (.rds) inside your **intermediate** folder.
 
 ```{r}
-df_raw <- read_csv("~/BIOS512/lecture4/character-data.csv");
+df_raw <- read_csv("~/lecture4/character-data.csv");
 mdpre(df_raw)
 saveRDS(df_raw, file = "intermediate/df_raw.rds")
 ```
@@ -42,7 +42,7 @@ saveRDS(df_raw, file = "intermediate/df_raw.rds")
 The col_types argument overrides readr’s automatic guessing and tells read_csv() exactly how to interpret each column.
 
 ```{r}
-df <- read_csv("~/BIOS512/lecture4/character-data.csv", col_types = cols(
+df <- read_csv("~/lecture4/character-data.csv", col_types = cols(
   Name = col_character(), #forces column to text
   Universe = col_character(), #forces column to text
   Teams = col_character(), #forces column to text
