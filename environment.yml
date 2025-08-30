@@ -7,5 +7,3 @@ dependencies:
   - jupyterlab
   - r-base=4.2.3
   - r-irkernel
-  - r-tidyverse
-  - r-markdown
