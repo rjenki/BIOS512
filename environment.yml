@@ -2,14 +2,10 @@ name: r_env
 channels:
   - conda-forge
 dependencies:
-  # Python
-  - python=3.13
+  - python=3.11
   - ipykernel
   - jupyterlab
-  - rpy2   # to run R inside Python notebooks
-
-  # R base + packages
-  - r-base=4.2
-  - r-irkernel       # for a full R kernel in Jupyter
+  - r-base=4.2.3
+  - r-irkernel
   - r-tidyverse
   - r-markdown
