@@ -111,3 +111,6 @@ Here's how to run the example code.
 3. Open R Studio.
 4. Navigate to the lecture4 folder, and click on the tidyverse_examples.Rmd file.  
 5. You can either run the chunks individually, or click Run -> Run all chunks below.
+
+### Lecture 5
+**Coming soon!**
