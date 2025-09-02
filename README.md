@@ -17,8 +17,11 @@ r-4.3-2023-06-15
 ```
 My **install.R** file included more packages, which we will need for the course. See below.
 ```
-options(repos = c(CRAN = "https://cran.r-project.org"))
-install.packages(c("tidyverse", "rmarkdown"), dependencies = TRUE)
+install.packages("tidyverse", dependencies = TRUE)
+install.packages("rmarkdown", dependencies = TRUE)
+install.packages("IRkernel", dependencies = TRUE)
+
+IRkernel::installspec(user = FALSE)
 ```
 Additionally, due to the `tidyverse` dependencies, I had to make a **apt.txt** file with the following:
 ```
