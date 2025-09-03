@@ -1,3 +1,4 @@
 jupyterlab
 myst-parser
+myst-nb
 pandas
