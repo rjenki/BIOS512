@@ -2,3 +2,4 @@ jupyterlab
 myst-parser
 myst-nb
 pandas
+jupyter-book>=0.13
