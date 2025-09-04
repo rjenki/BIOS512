@@ -54,6 +54,7 @@ If I add a package in order to run example code, I will specify that in the note
 2. On your computer, drag and drop or copy/paste your file into your git repo folder.
 3. Type the following commands:
 ```
+cd ~/<YOUR REPO>
 git add <filename>
 git commit -m "Added <filename>"
 git push -u origin main
