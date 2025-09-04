@@ -5,6 +5,7 @@ I will be posting the lecture examples and detailed instructions on how to run t
 ## Course Repositiories:
 NEW: https://github.com/Vincent-Toups/bios512  
 OLD: https://github.com/chuckpr/BIOS512
+BOOK: https://gitlab.com/vincent-toups/labradore
 
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/rjenki/BIOS512/HEAD)
 
@@ -60,7 +61,7 @@ git push -u origin main
     3. Give it a name and an expiration date.
     4. On scopes, check repo.
     5. Click Generate token at the bottom.
-    6. Copy the token that appears and SAVE IT SOMEWHERE.
+    6. Copy the token that appears and **SAVE IT SOMEWHERE**. It will only show you this token ONCE.
 2. After creating your file in Binder, open a new tab and click Terminal.
 3. Type the following commands:
 ```
@@ -71,7 +72,7 @@ git add <filename>
 git commit -m "Added <filename>"
 git push -u origin main
 ```
-4. Then, on the Terminal of your computer (not Binder), you'll need to fetch the file.
+4. Then, on the Terminal of your computer (not Binder), you'll need to pull your repo to get the new file on your local computer.
 ```
 git pull origin main
 ```
