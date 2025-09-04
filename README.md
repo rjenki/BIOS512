@@ -43,7 +43,7 @@ Rscript install.R
 If I add a package in order to run example code, I will specify that in the notes.  
 
 ### HELP! I made a file in Binder... How do I save it to my repo?
-**It is easier and preferred for you to create files on your local computer and then upload them to your git repo.** However, if you went into Binder and *then* created and edited your Jupyter Notebook, **IT WILL NOT AUTO SAVE.** Please either *download the assignment* and upload it to your git repo through the terminal on your computer, or *use the terminal on Binder* to make sure it saves (more steps). 
+**It is easier and preferred for you to create files on your local computer and then upload them to your git repo.** However, if you went into Binder and *then* created and edited your Jupyter Notebook, **IT WILL NOT AUTO SAVE.** Please either *download the assignment* and upload it to your git repo through the terminal on your computer, or *use the terminal on Binder* to make sure it saves (more steps).  
 **Using Terminal**
 1. On Binder, right click your file on the directory view (panel on left side of the screen) and click Download. 
 2. On your computer, drag and drop or copy/paste your file into your git repo folder.
