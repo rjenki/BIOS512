@@ -34,8 +34,12 @@ libicu-dev
 ### Adding packages to install.R later...
 To add a package and incorporate that into your Binder, you will need to update your **install.R** file on GitHub and rerun it in Binder. For example, to add the *shiny* package, you will need to change your **install.R** file to what is shown below:
 ```
-options(repos = c(CRAN = "https://cran.r-project.org"))
-install.packages(c("readr","ggplot2","tidyr","shiny"))
+install.packages("tidyverse", dependencies = TRUE)
+install.packages("rmarkdown", dependencies = TRUE)
+install.packages("IRkernel", dependencies = TRUE)
+install.packages("shiny"), dependencies = TRUE)
+
+IRkernel::installspec(user = FALSE)
 ```
 Then, you will need to open Binder and go to the terminal and type the following.
 ```
