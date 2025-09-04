@@ -30,7 +30,7 @@ libcurl4-openssl-dev
 libssl-dev
 libicu-dev
 ```
-#### Important Note
+#### Adding packages to install.R later...
 To add a package and incorporate that into your Binder, you will need to update your **install.R** file on GitHub and rerun it in Binder. For example, to add the *shiny* package, you will need to change your **install.R** file to what is shown below:
 ```
 options(repos = c(CRAN = "https://cran.r-project.org"))
@@ -42,21 +42,41 @@ Rscript install.R
 ```
 If I add a package in order to run example code, I will specify that in the notes.  
 
-### Converting .Rmd files to .ipynb
-*You may not need this! But, here it is if you do...*  
-Open the terminal on your computer and type in the following commands.  
+#### HELP! I made a file in Binder... How do I save it to my repo?
+**It is easier and preferred for you to create files on your local computer and then upload them to your git repo.** However, if you went into Binder and *then* created and edited your Jupyter Notebook, **IT WILL NOT AUTO SAVE.** Please either *download the assignment* and upload it to your git repo through the terminal on your computer, or *use the terminal on Binder* to make sure it saves (more steps). 
+**Using Terminal**
+1. On Binder, right click your file on the directory view (panel on left side of the screen) and click Download. 
+2. On your computer, drag and drop or copy/paste your file into your git repo folder.
+3. Type the following commands:
 ```
-python3 --version
-brew install pipx
-pipx ensurepath
-source ~/.zshrc
-pipx install notedown
-pipx inject notedown setuptools
-notedown ~/<DIR>/<file>.Rmd --knit > ~/<DIR>/<file>.ipynb
+git add <filename>
+git commit -m "Added <filename>"
+git push -u origin main
 ```
-*Notes:*  
-**DIR** means the directory that your Rmd file is saved in. **file** means the name of the .Rmd file.  
-Make sure that *knitr* is installed on your R Studio.
+**On Binder**
+1. First, you'll need to create a personal access token for Binder.
+    1. Log into GitHub and go to Settings > Developer Settings > Personal access tokens (classic).
+    2. Click Generate new token > Generate new token (classic).
+    3. Give it a name and an expiration date.
+    4. On scopes, check repo.
+    5. Click Generate token at the bottom.
+    6. Copy the token that appears and SAVE IT SOMEWHERE.
+2. After creating your file in Binder, open a new tab and click Terminal.
+3. Type the following commands:
+```
+git remote set-url origin https://<YOUR_TOKEN>@github.com/rjenki/BIOS512.git
+git config --global user.email "you@example.com"
+git config --global user.name "Your Name"
+git add <filename>
+git commit -m "Added <filename>"
+git push -u origin main
+```
+4. Then, on the Terminal of your computer (not Binder), you'll need to fetch the file.
+```
+git fetch origin
+git checkout origin/main -- <filename>
+```
+*If you're making files on Binder, you'll need to **do steps 2-4 each time you open Binder** and make a new file or make changes to an old file in Binder.*
 
 ### Lecture 1 - Using ggplot with given data
 #### Using Binder
