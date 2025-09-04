@@ -73,8 +73,7 @@ git push -u origin main
 ```
 4. Then, on the Terminal of your computer (not Binder), you'll need to fetch the file.
 ```
-git fetch origin
-git checkout origin/main -- <filename>
+git pull origin main
 ```
 *If you're making files on Binder, you'll need to **do steps 2-4 each time you open Binder** and make a new file or make changes to an old file in Binder.*
 
