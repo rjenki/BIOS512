@@ -141,5 +141,8 @@ Here's how to run the example code.
 Here's how to run the lecture code:  
 1. Click on my Binder button at the top of the page.
 2. When Binder opens, navigate to the `lecture5` folder, and click on `tabular_data.ipynb`.
-3. The Jupyter Notebook will open, and then you'll be able to run the chunks of code. 
+3. The Jupyter Notebook will open, and then you'll be able to run the chunks of code.  
 **Note**: Don't forget that you have to run the previous code chunk before running the next one - each chunk builds on eachother!
+
+## Lecture 6 
+**Coming soon!**
