@@ -4,7 +4,7 @@ I will be posting the lecture examples and detailed instructions on how to run t
 
 ## Course Repositiories:
 NEW: https://github.com/Vincent-Toups/bios512  
-OLD: https://github.com/chuckpr/BIOS512
+OLD: https://github.com/chuckpr/BIOS512  
 BOOK: https://gitlab.com/vincent-toups/labradore
 
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/rjenki/BIOS512/HEAD)
