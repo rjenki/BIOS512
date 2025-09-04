@@ -112,5 +112,9 @@ Here's how to run the example code.
 4. Navigate to the lecture4 folder, and click on the tidyverse_examples.Rmd file.  
 5. You can either run the chunks individually, or click Run -> Run all chunks below.
 
-### Lecture 5
-**Coming soon!**
+### Lecture 5 - Tabular Data
+Here's how to run the lecture code:  
+1. Click on my Binder button at the top of the page.
+2. When Binder opens, navigate to the `lecture5` folder, and click on `tabular_data.ipynb`.
+3. The Jupyter Notebook will open, and then you'll be able to run the chunks of code. 
+**Note**: Don't forget that you have to run the previous code chunk before running the next one - each chunk builds on eachother!
