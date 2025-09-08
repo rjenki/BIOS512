@@ -145,4 +145,4 @@ Here's how to run the lecture code:
 **Note**: Don't forget that you have to run the previous code chunk before running the next one - each chunk builds on eachother!
 
 ## Lecture 6 
-**Coming soon!**
+*Coming soon!*
