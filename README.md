@@ -114,7 +114,7 @@ cat ~/.ssh/id_ed25519.pub
 ```
 ssh -T git@github.com
 ```
-If it worked, you'll see a message that says you successfully authenticated. 
+The first time you do this, it'll ask if you want to continue connecting. Type `yes`, then it'll have you put in the passcode you set earlier. If it worked, you'll see a message that says you successfully authenticated. 
 ### Mac
 Apple Macs run on Unix, which is extremely similar to Linux and allows users to run most Linux commands. You may need to install Git, however.
 1. In your Terminal, type in `git --version`. If it returns a version, you're good to go!
