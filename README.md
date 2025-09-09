@@ -84,10 +84,39 @@ git pull origin main
 *If you're making files on Binder, you'll need to **do steps 2-4 each time you open Binder** and make a new file or make changes to an old file in Binder.*
 ## Using Git Bash From The Terminal/Command Line
 ### Windows
+Windows does not natively come with Linux installed, and Git runs on Linux.
 1. Download **Git** for Windows: https://gitforwindows.org/. You'll need the Git-2.51.0-64-bit.exe file.
 2. Install and open **Git Bash** (the application to run these commands on).
-3. Run your commands!
+3. Once installed, configure your identity. For the email on this, it needs to be the same email as your GitHub account.
+```
+git config --global user.name "Your Name"
+git config --global user.email "you@email.com"
+```
+4. Generate an SSH key.
+```
+ssh-keygen -t ed25519 -C "you@email.com"
+```
+5. Set a passphrase for the SSH key. (It will prompt you to do this.)
+6. Start the ssh-agent.
+```
+eval "$(ssh-agent -s)"
+```
+7. Add your key to the agent.
+```
+ssh-add ~/.ssh/id_ed25519
+```
+8. Copy the public key.
+```
+cat ~/.ssh/id_ed25519.pub
+```
+9. Then, on your browser, go to GitHub > Settings > SSH and GPG keys > New SSH key and paste the key.
+10. Test it! In your terminal, type:
+```
+ssh -T git@github.com
+```
+If it worked, you'll see a message that says you successfully authenticated. 
 ### Mac
+Apple Macs run on Unix, which is extremely similar to Linux and allows users to run most Linux commands. You may need to install Git, however.
 1. In your Terminal, type in `git --version`. If it returns a version, you're good to go!
 2. If Git is not installed, you will get the option to install it. 
 3. Once installed, configure your identity. For the email on this, it needs to be the same email as your GitHub account.
