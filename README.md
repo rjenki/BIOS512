@@ -99,6 +99,7 @@ git config --global user.email "you@email.com"
 ```
 ssh-keygen -t ed25519 -C "you@email.com"
 ```
+It'll ask you to put the file save location. Click ENTER to use the default location.
 5. Set a passphrase for the SSH key. (It will prompt you to do this.)
 6. Start the ssh-agent.
 ```
@@ -117,7 +118,7 @@ cat ~/.ssh/id_ed25519.pub
 ```
 ssh -T git@github.com
 ```
-If it worked, you'll see a message that says you successfully authenticated.  
+The first time you do this, it'll ask if you want to continue connecting. Type `yes`, then it'll have you put in the passcode you set earlier. If it worked, you'll see a message that says you successfully authenticated.  
 
 ## Lecture 1 - Using ggplot with given data
 ### Using Binder
