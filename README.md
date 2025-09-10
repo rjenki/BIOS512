@@ -92,7 +92,7 @@ Windows does not natively come with Linux installed, and Git runs on Linux.
 git config --global user.name "Your Name"
 git config --global user.email "you@email.com"
 ```
-4. Generate an SSH key.
+4. Generate an SSH key. If using `ed25519` doesn't work, replace everything that says `ed25519` to `rsa`.
 ```
 ssh-keygen -t ed25519 -C "you@email.com"
 ```
@@ -107,7 +107,7 @@ ssh-add ~/.ssh/id_ed25519
 ```
 8. Copy the public key.
 ```
-cat ~/.ssh/id_ed25519.pub
+cat ~/.ssh/id_rsa.pub
 ```
 9. Then, on your browser, go to GitHub > Settings > SSH and GPG keys > New SSH key and paste the key.
 10. Test it! In your terminal, type:
