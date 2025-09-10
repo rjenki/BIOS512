@@ -24,12 +24,16 @@ install.packages("IRkernel", dependencies = TRUE)
 
 IRkernel::installspec(user = FALSE)
 ```
-Additionally, due to the `tidyverse` dependencies, I had to make a **apt.txt** file with the following:
+Additionally, to export PDFs with LaTex and due to the `tidyverse` dependencies, I had to make a **apt.txt** file with the following:
 ```
 libxml2-dev
 libcurl4-openssl-dev
 libssl-dev
 libicu-dev
+pandoc
+texlive-xetex
+texlive-fonts-recommended
+texlive-plain-generic
 ```
 ### Adding packages to install.R later...
 To add a package and incorporate that into your Binder, you will need to update your **install.R** file on GitHub and rerun it in Binder. For example, to add the *shiny* package, you will need to change your **install.R** file to what is shown below:
