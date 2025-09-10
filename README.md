@@ -107,7 +107,7 @@ ssh-add ~/.ssh/id_ed25519
 ```
 8. Copy the public key.
 ```
-cat ~/.ssh/id_rsa.pub
+cat ~/.ssh/id_ed25519.pub
 ```
 9. Then, on your browser, go to GitHub > Settings > SSH and GPG keys > New SSH key and paste the key.
 10. Test it! In your terminal, type:
