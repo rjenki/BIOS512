@@ -4,3 +4,7 @@ libssl-dev
 libicu-dev
 wget
 sudo
+pandoc
+texlive-xetex
+texlive-fonts-recommended
+texlive-plain-generic
