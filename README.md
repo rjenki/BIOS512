@@ -214,7 +214,7 @@ Here's how to run the lecture code:
 3. The Jupyter Notebook will open, and then you'll be able to run the chunks of code.  
 **Note**: Don't forget that you have to run the previous code chunk before running the next one - each chunk builds on eachother!
 
-## Lecture 6 - NUFORC Workshop
+## Lecture 6 - NUFORC Workshop (Effective Visualization I)
 Here's how to run it:
 1. Click on my Binder button at the top of the page.
 2. When Binder opens, navigate to the `lecture6` folder, and click on `nuforc_workshop.ipynb`.
@@ -231,3 +231,11 @@ Here's how to run it:
     **Notes**:   
     *Don't forget that you have to run the previous code chunk before running the next one - each chunk builds on eachother!  
     *This code uses `deSolve` and `Rtsne`, which I did not previously have installed. Because I updated my `install.R` file with the package, you will not have issues running it on my Binder link. However, if you are trying to replicate it on your repo, you will need to do this!  
+
+## Lecture 8 - TNG Workshop (Effective Visualization II)
+Here's how to run it:
+1. Click on my Binder button at the top of the page.
+2. When Binder opens, navigate to the `lecture8` folder, and click on `visuals_tng.ipynb`.
+3. The Jupyter Notebook will open, and then you'll be able to run the chunks of code.  
+    **Notes**:   
+    *Don't forget that you have to run the previous code chunk before running the next one - each chunk builds on eachother!   
