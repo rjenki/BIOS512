@@ -239,3 +239,6 @@ Here's how to run it:
 3. The Jupyter Notebook will open, and then you'll be able to run the chunks of code.  
     **Notes**:   
     *Don't forget that you have to run the previous code chunk before running the next one - each chunk builds on eachother!   
+  
+## Lecture 9 - Advanced Git I
+This lecture doesn't have any example code for you to run on your device, but I have detailed summary notes in the `lecture9` folder called `advanced_git_i.md`. Please check those out!  
