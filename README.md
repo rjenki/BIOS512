@@ -153,6 +153,56 @@ ssh -T git@github.com
 ```
 The first time you do this, it'll ask if you want to continue connecting. Type `yes`, then it'll have you put in the passcode you set earlier. If it worked, you'll see a message that says you successfully authenticated.  
 
+## Lecture 9 - Advanced Git I
+This lecture doesn't have any example code for you to run on your device, but I have detailed summary notes in the `lecture9` folder called `advanced_git_i.md`. Please check those out!  
+
+## Lecture 8 - TNG Workshop (Effective Visualization II)
+Here's how to run it:
+1. Click on my Binder button at the top of the page.
+2. When Binder opens, navigate to the `lecture8` folder, and click on `visuals_tng.ipynb`.
+3. The Jupyter Notebook will open, and then you'll be able to run the chunks of code.  
+    **Notes**:   
+    *Don't forget that you have to run the previous code chunk before running the next one - each chunk builds on eachother!   
+  
+## Lecture 7 - Dimensionality Reduction
+Here's how to run it:
+1. Click on my Binder button at the top of the page.
+2. When Binder opens, navigate to the `lecture7` folder, and click on `dimensionality_reduction.ipynb`.
+3. The Jupyter Notebook will open, and then you'll be able to run the chunks of code.  
+    **Notes**:   
+    *Don't forget that you have to run the previous code chunk before running the next one - each chunk builds on eachother!  
+    *This code uses `deSolve` and `Rtsne`, which I did not previously have installed. Because I updated my `install.R` file with the package, you will not have issues running it on my Binder link. However, if you are trying to replicate it on your repo, you will need to do this!
+   
+## Lecture 6 - NUFORC Workshop (Effective Visualization I)
+Here's how to run it:
+1. Click on my Binder button at the top of the page.
+2. When Binder opens, navigate to the `lecture6` folder, and click on `nuforc_workshop.ipynb`.
+3. The Jupyter Notebook will open, and then you'll be able to run the chunks of code.  
+**Notes**:  
+*Don't forget that you have to run the previous code chunk before running the next one - each chunk builds on eachother!
+*This code uses `skimr`, which I did not previously have installed. Because I updated my `install.R` file with the package, you will not have issues running it on my Binder link. However, if you are trying to replicate it on your repo, you will need to do this!
+
+## Lecture 5 - Tabular Data
+Here's how to run the lecture code:  
+1. Click on my Binder button at the top of the page.
+2. When Binder opens, navigate to the `lecture5` folder, and click on `tabular_data.ipynb`.
+3. The Jupyter Notebook will open, and then you'll be able to run the chunks of code.  
+**Note**: Don't forget that you have to run the previous code chunk before running the next one - each chunk builds on eachother!
+
+## Lecture 4 - Intro to Tidyverse
+Here's how to run the example code.
+1. Update your install.R file to include rmarkdown and tidyverse if it didn't have it already. (You can copy mine!)
+2. Click on the Binder link on my repo and let it load. 
+3. Open R Studio.
+4. Navigate to the lecture4 folder, and click on the tidyverse_examples.Rmd file.  
+5. You can either run the chunks individually, or click Run -> Run all chunks below.
+
+## Lecture 3 - Intro to Git
+Uploaded a summary notes file with key words, important commands, and how to set up your git repository. *Follow those instructions to set yours up!*
+
+## Lecture 2 - Intro to R
+Not posting examples from here because it was intro to R, however, you can launch the Rmd file in your Binder and run the code chunks to see the output.
+
 ## Lecture 1 - Using ggplot with given data
 ### Using Binder
 See the section above and make sure you have the correct **install.R** file!  
@@ -192,53 +242,3 @@ Then, open the terminal and type in:
 Rscript plot-data-data.R
 ```
 After running, you should see **lecture1.png** in the lecture1 folder.
-
-## Lecture 2 - Intro to R
-Not posting examples from here because it was intro to R, however, you can launch the Rmd file in your Binder and run the code chunks to see the output.
-
-## Lecture 3 - Intro to Git
-Uploaded a summary notes file with key words, important commands, and how to set up your git repository. *Follow those instructions to set yours up!*
-
-## Lecture 4 - Intro to Tidyverse
-Here's how to run the example code.
-1. Update your install.R file to include rmarkdown and tidyverse if it didn't have it already. (You can copy mine!)
-2. Click on the Binder link on my repo and let it load. 
-3. Open R Studio.
-4. Navigate to the lecture4 folder, and click on the tidyverse_examples.Rmd file.  
-5. You can either run the chunks individually, or click Run -> Run all chunks below.
-
-## Lecture 5 - Tabular Data
-Here's how to run the lecture code:  
-1. Click on my Binder button at the top of the page.
-2. When Binder opens, navigate to the `lecture5` folder, and click on `tabular_data.ipynb`.
-3. The Jupyter Notebook will open, and then you'll be able to run the chunks of code.  
-**Note**: Don't forget that you have to run the previous code chunk before running the next one - each chunk builds on eachother!
-
-## Lecture 6 - NUFORC Workshop (Effective Visualization I)
-Here's how to run it:
-1. Click on my Binder button at the top of the page.
-2. When Binder opens, navigate to the `lecture6` folder, and click on `nuforc_workshop.ipynb`.
-3. The Jupyter Notebook will open, and then you'll be able to run the chunks of code.  
-**Notes**:  
-*Don't forget that you have to run the previous code chunk before running the next one - each chunk builds on eachother!
-*This code uses `skimr`, which I did not previously have installed. Because I updated my `install.R` file with the package, you will not have issues running it on my Binder link. However, if you are trying to replicate it on your repo, you will need to do this!  
-  
-## Lecture 7 - Dimensionality Reduction
-Here's how to run it:
-1. Click on my Binder button at the top of the page.
-2. When Binder opens, navigate to the `lecture7` folder, and click on `dimensionality_reduction.ipynb`.
-3. The Jupyter Notebook will open, and then you'll be able to run the chunks of code.  
-    **Notes**:   
-    *Don't forget that you have to run the previous code chunk before running the next one - each chunk builds on eachother!  
-    *This code uses `deSolve` and `Rtsne`, which I did not previously have installed. Because I updated my `install.R` file with the package, you will not have issues running it on my Binder link. However, if you are trying to replicate it on your repo, you will need to do this!  
-
-## Lecture 8 - TNG Workshop (Effective Visualization II)
-Here's how to run it:
-1. Click on my Binder button at the top of the page.
-2. When Binder opens, navigate to the `lecture8` folder, and click on `visuals_tng.ipynb`.
-3. The Jupyter Notebook will open, and then you'll be able to run the chunks of code.  
-    **Notes**:   
-    *Don't forget that you have to run the previous code chunk before running the next one - each chunk builds on eachother!   
-  
-## Lecture 9 - Advanced Git I
-This lecture doesn't have any example code for you to run on your device, but I have detailed summary notes in the `lecture9` folder called `advanced_git_i.md`. Please check those out!  
