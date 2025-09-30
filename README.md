@@ -153,6 +153,12 @@ ssh -T git@github.com
 ```
 The first time you do this, it'll ask if you want to continue connecting. Type `yes`, then it'll have you put in the passcode you set earlier. If it worked, you'll see a message that says you successfully authenticated.  
 
+## Lecture 11 - Clustering
+Coming soon!
+
+## Lecture 10 - Advanced Git II
+Detailed summary notes in the `lecture10` folder called `advanced_git_ii.md`. This also includes everything from lecture 9, so you don't need two sets of notes!  
+
 ## Lecture 9 - Advanced Git I
 This lecture doesn't have any example code for you to run on your device, but I have detailed summary notes in the `lecture9` folder called `advanced_git_i.md`. Please check those out!  
 
