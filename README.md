@@ -154,7 +154,13 @@ ssh -T git@github.com
 The first time you do this, it'll ask if you want to continue connecting. Type `yes`, then it'll have you put in the passcode you set earlier. If it worked, you'll see a message that says you successfully authenticated.  
 
 ## Lecture 11 - Clustering
-Coming soon!
+Here's how to run it:
+1. Click on my Binder button at the top of the page.
+2. When Binder opens, navigate to the `lecture11` folder, and click on `clustering_k_means.ipynb`.
+3. The Jupyter Notebook will open, and then you'll be able to run the chunks of code.
+    **Notes**:
+    *Don't forget that you have to run the previous code chunk before running the next one - each chunk builds on eachother!
+    *This code uses `matlab` and `GGally`, and `gridExtra`, which I did not previously have installed. Because I updated my `install.R` file with the package, you will not have issues running it on my Binder link. However, i$
 
 ## Lecture 10 - Advanced Git II
 Detailed summary notes in the `lecture10` folder called `advanced_git_ii.md`. This also includes everything from lecture 9, so you don't need two sets of notes!  
