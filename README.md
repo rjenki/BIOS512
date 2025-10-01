@@ -160,7 +160,7 @@ Here's how to run it:
 3. The Jupyter Notebook will open, and then you'll be able to run the chunks of code.
     **Notes**:
     *Don't forget that you have to run the previous code chunk before running the next one - each chunk builds on eachother!
-    *This code uses `matlab` and `GGally`, and `gridExtra`, which I did not previously have installed. Because I updated my `install.R` file with the package, you will not have issues running it on my Binder link. However, i$
+    *This code uses `matlab` and `GGally`, and `gridExtra`, which I did not previously have installed. Because I updated my `install.R` file with the package, you will not have issues running it on my Binder link. However, if you are trying to replicate it on your repo, you will need to do this!
 
 ## Lecture 10 - Advanced Git II
 Detailed summary notes in the `lecture10` folder called `advanced_git_ii.md`. This also includes everything from lecture 9, so you don't need two sets of notes!  
