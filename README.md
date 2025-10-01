@@ -157,7 +157,7 @@ The first time you do this, it'll ask if you want to continue connecting. Type `
 Here's how to run it:
 1. Click on my Binder button at the top of the page.
 2. When Binder opens, navigate to the `lecture11` folder, and click on `clustering_k_means.ipynb`.
-3. The Jupyter Notebook will open, and then you'll be able to run the chunks of code.
+3. The Jupyter Notebook will open, and then you'll be able to run the chunks of code.   
     **Notes**:
     *Don't forget that you have to run the previous code chunk before running the next one - each chunk builds on eachother!
     *This code uses `matlab` and `GGally`, and `gridExtra`, which I did not previously have installed. Because I updated my `install.R` file with the package, you will not have issues running it on my Binder link. However, if you are trying to replicate it on your repo, you will need to do this!
