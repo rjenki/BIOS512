@@ -9,6 +9,8 @@ install.packages("GGally")
 install.packages("gridExtra")
 install.packages("ppclust")
 install.packages("mclust")
+install.packages("rdist")
+install.packages("kernlab")
 IRkernel::installspec(user = FALSE)
 
 system("wget https://github.com/quarto-dev/quarto-cli/releases/download/v2.12.0/quarto-2.12.0-linux-amd64.deb")
