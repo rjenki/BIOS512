@@ -153,7 +153,18 @@ ssh -T git@github.com
 ```
 The first time you do this, it'll ask if you want to continue connecting. Type `yes`, then it'll have you put in the passcode you set earlier. If it worked, you'll see a message that says you successfully authenticated.  
 
-## Lecture 11 - Clustering
+## Lecture 12 - Clustering II
+Interactive code is in the `lecture12` folder called `clustering_k_means_ii.ipynb`. This also includes everything from lecture 11, so you don't need two sets of notes!  
+Here's how to run it:
+1. Click on my Binder button at the top of the page.
+2. When Binder opens, navigate to the `lecture12` folder, and click on `clustering_k_means_ii.ipynb`.
+3. The Jupyter Notebook will open, and then you'll be able to run the chunks of code. You can edit this code within Binder. It doesn't affect mine.  
+    **Notes**:
+    *Don't forget that you have to run the previous code chunk before running the next one - each chunk builds on eachother!
+    *This code uses `ppclust`, `mclust`, `rdist`, and `kernlab`, which I did not previously have installed. Because I updated my `install.R` file with the package, you will not have issues running it on my Binder.  
+ 
+
+## Lecture 11 - Clustering I
 Here's how to run it:
 1. Click on my Binder button at the top of the page.
 2. When Binder opens, navigate to the `lecture11` folder, and click on `clustering_k_means.ipynb`.
