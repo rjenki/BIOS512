@@ -153,6 +153,14 @@ ssh -T git@github.com
 ```
 The first time you do this, it'll ask if you want to continue connecting. Type `yes`, then it'll have you put in the passcode you set earlier. If it worked, you'll see a message that says you successfully authenticated.  
 
+## Lecture 16
+Coming soon!
+
+## Lectures 14-15 - Classification and Regression  
+Still working on simplifying this code. I'm adding these in the same folder since this was a two part lecture.   
+    **Notes**:  
+    *I added the following packages to my `install.R` file: `glmnet`, `broom`, `ggrepel`, and `palmerpenguins`. 
+
 ## Lecture 13 - Clustering Workshop
 Here's how to run it:
 1. Click on my Binder button at the top of the page.
