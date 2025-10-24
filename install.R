@@ -16,6 +16,8 @@ install.packages("glmnet")
 install.packages("broom")
 install.packages("ggrepel")
 install.packages("palmerpenguins")
+install.packages("caret")
+install.packages("gbm")
 IRkernel::installspec(user = FALSE)
 
 system("wget https://github.com/quarto-dev/quarto-cli/releases/download/v2.12.0/quarto-2.12.0-linux-amd64.deb")
