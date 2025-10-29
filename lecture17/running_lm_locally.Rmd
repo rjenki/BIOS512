@@ -1,0 +1,155 @@
+---
+output: html_document
+---
+
+# Running Language Models Locally
+
+#### NOTE: You can't run this on Binder, which is why I have it as a separate file. If you download it and follow the instructions, you should be able to run this on your machine.
+
+Language models pirated a lot of stuff to train these language models... They've trained a language model, and now they're charging you for access to that stuff that was in the public domain in the first place. You can go and get one of those language models and tuck it in your back pocket, you can use it for your own data analysis, because the data that went into that language model was already in the public domain.\
+**OLLAMA** runs language model tools locally on your computer. (Easier if you have a GPU, but not necessary.) Ollama is a wrapper around **Docker** - We'll talk about this later! **Docker** essentially lets you run little computers on your computer.\
+**Download link:** <https://ollama.com/download>
+
+## Using OLLAMA
+
+As mentioned, when we talk to the language model, we'll talk to them over HTTP. So, `httr` provides us some functions to make requests over HTTP.
+
+```{r}
+library(httr)
+# Gives HTTP response for Google
+GET("www.google.com")
+```
+
+### Install Instructions
+
+1.  **Install OLLAMA.** I have a Mac, so I installed it with Homebrew on my terminal: `brew install ollama`.
+2.  **Check the version** with `ollama -v`. You should see `ollama version is 0.12.6`.
+3.  **Pull or install a model locally:** `ollama pull gemma3:1b`.
+4.  **Run the OLLAMA API server:** `ollama serve`. If it says it's already in use, check `lsof -i :11434`.
+
+### Post Wrapper, Chat Completion, Factory
+
+```{r}
+library(httr)
+library(jsonlite)
+
+# Bottom-up: simple POST wrapper, then chat completion, then a factory
+
+post <- function(url, body, headers=NULL) {
+    req <- if (is.null(headers)) {
+        httr::POST(url, body = body, encode = "json")
+    } else {
+        do.call(httr::POST, c(list(url = url, body = body, encode = "json"), headers))
+    }
+    jsonlite::fromJSON(httr::content(req, as = "text", encoding = "UTF-8"))
+}
+
+
+chat_completion <- function(base_url,
+                            model,
+                            user,
+                            temperature = 0.7,
+                            max_tokens = 256,
+                            api_key = NULL,
+                            path = "/chat/completions",
+                            system = NULL,
+                            extra = list()) {
+  # Construct URL safely
+  url <- paste0(base_url, path)
+
+  # Add headers (if OpenAI-style API)
+  headers <- if (!is.null(api_key) && nzchar(api_key)) {
+    list(Authorization = paste("Bearer", api_key))
+  } else {
+    NULL
+  }
+
+  # Build message list for the API
+  messages <- if (is.null(system)) {
+    list(list(role = "user", content = user))
+  } else {
+    list(
+      list(role = "system", content = system),
+      list(role = "user", content = user)
+    )
+  }
+
+  # Build JSON body
+  body <- modifyList(list(
+    model = model,
+    messages = messages,
+    temperature = temperature,
+    max_tokens = max_tokens
+  ), extra)
+
+  # Send request
+  res <- post(url, body, headers)
+
+  # Safely extract assistant reply
+  content <- tryCatch(
+    res$choices$message$content[[1]],
+    error = function(e) NULL
+  )
+
+  # Return structured result
+  list(
+    content = content,
+    role = "assistant",
+    raw = res
+  )
+}
+
+                            
+chat_completion_factory <- function(base_url,
+                                    model,
+                                    api_key = NULL,
+                                    path = "/chat/completions",
+                                    defaults = list (temperature = 0.7, max_tokens = 256),
+                                    extra = list()) {
+    force(base_url); force(model); force(api_key); force(path); force(defaults); force(extra) 
+    function (user, system = defaults$system, ..., 
+           temperature = defaults$temperature, max_tokens = defaults$max_tokens) {
+        chat_completion(
+            base_url = base_url,
+            model = model,                           
+            user = user,
+            temperature = temperature,
+            max_tokens = max_tokens,
+            api_key = api_key,
+            path = path,
+            system = defaults$system,
+            extra = modifyList(extra, list(...))
+        )
+    }
+}
+```
+
+### Using It
+
+```{r}
+# Choose endpoint and model
+use_openai <- FALSE
+
+base_url <- if (use_openai) "https://api.openai.com/v1" else "http://localhost:11434/v1"
+api_key <- if (use_openai) Sys.getenv("OPENAI_API_KEY") else NULL # When you use OLLAMA, you don't need an API key.
+model_name <- "gemma3:1b"
+
+# Build a chat function with captured config
+chat <- chat_completion_factory(base_url = base_url, model = model_name, api_key = api_key,
+                                defaults = list(temperature = 0.7, max_tokens = 2000)
+)
+
+resp <- chat("It was the best of times")
+cat(sprintf("%s\n", resp$content))
+```
+
+If you aren't able to see the response, here it is:
+
+```         
+Please provide me with the context! “It was the best of times” is a famous quote from Charles Dickens’ *A Tale of Two Cities*. 
+
+To help me understand what you're asking and respond appropriately, could you tell me:
+
+*   **What are you referring to?** Are you thinking of a specific story or a general feeling?
+*   **What are you hoping to do with this quote?** Are you asking for a definition, a discussion, or something else?
+```
