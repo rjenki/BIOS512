@@ -10,7 +10,7 @@ Git is not only a version control system for the Linux kernel. It is a toolkit f
 
 If you have a Mac or Linux operating system, you can use Git from your command line/terminal. If you have a Windows computer, use Git for Windows. All the commands we talk about assume you're using the command line.
 
-## Holy Trinity of Git
+## Git Big Three
 
 1.  **Branch**: history of your code up until a certain moment (also called the **head** or the **history**). You can more specifically say that it is the history of patch files either going back to the beginning of the repo or the time that the branch diverged.\
     For example, below `exp1` branch diverges from main (after the third commit) and has its own commits \*-\*-\*-\*. `exp2` branch diverges from main even earlier and has its commits \*-\*-\*.
