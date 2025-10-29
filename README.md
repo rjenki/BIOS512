@@ -153,6 +153,9 @@ ssh -T git@github.com
 ```
 The first time you do this, it'll ask if you want to continue connecting. Type `yes`, then it'll have you put in the passcode you set earlier. If it worked, you'll see a message that says you successfully authenticated.  
 
+## Lecture 17 - Language Models
+The first section is in `language_models_i.ipynb`, and it contains the section on building Markov models. There is a list of R packages that you'll need to install at the beginning of the file - for today, `httr` and `jsonlite`. For the next section, we have to run language models locally using OLLAMA. Therefore, it won't work on Binder without significant changes. Therefore, I made it into a `.Rmd` file (and an HTML if you want to view it on GitHub).
+
 ## Lectures 14-16 - Classification and Regression  
 If you want to run it, the derived data folder is blank and files will automatically be moved there. I am adding these lectures in the same folder since this was a three part lecture.    
     **Notes**:   
