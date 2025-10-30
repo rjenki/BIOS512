@@ -143,13 +143,280 @@ resp <- chat("It was the best of times")
 cat(sprintf("%s\n", resp$content))
 ```
 
-If you aren't able to see the response, here it is:
+## Making Our Own Chat Bot
 
-```         
-Please provide me with the context! “It was the best of times” is a famous quote from Charles Dickens’ *A Tale of Two Cities*. 
+```{r}
+# Closure-based chatbot that tracks conversation history
+make_chatbot <- function(base_url, model,
+                         api_key = NULL, system = NULL,
+                         path = "/chat/completions",
+                         defaults = list(temperature = 0.7, max_tokens = 2000),
+                         extra = list()) {
 
-To help me understand what you're asking and respond appropriately, could you tell me:
-
-*   **What are you referring to?** Are you thinking of a specific story or a general feeling?
-*   **What are you hoping to do with this quote?** Are you asking for a definition, a discussion, or something else?
+  force(base_url); force(model); force(api_key); force(system); force(path); force(defaults); force(extra)
+  
+  history <- list()
+  if (!is.null(system)) {
+    history <- c(history, list(list(role = "system", content = system)))
+  }
+  
+  function(user, temperature = defaults$temperature, max_tokens = defaults$max_tokens, ...) {
+    history <<- c(history, list(list(role = "user", content = user)))
+    
+    url <- paste0(base_url, path)
+    headers <- list(`Content-Type` = "application/json")
+    if (!is.null(api_key) && nzchar(api_key)) {
+      headers$Authorization <- paste("Bearer", api_key)
+    }
+    
+    body <- c(list(
+      model = model,
+      messages = history,
+      temperature = temperature,
+      max_tokens = max_tokens
+    ), modifyList(extra, list(...)))
+    
+    # Minimal fix: use do.call to expand the headers list
+    res <- httr::POST(url,
+                      do.call(httr::add_headers, headers),
+                      body = jsonlite::toJSON(body, auto_unbox = TRUE))
+    
+    content <- httr::content(res)$choices[[1]]$message$content
+    history <<- c(history, list(list(role = "assistant", content = content)))
+    
+    list(content = content, role = "assistant")
+  }
+}
 ```
+
+### Using The DIY Chat Bot
+
+```{r}
+chatbot <- make_chatbot(
+  base_url = base_url,
+  model = model_name,
+  api_key = api_key,
+  system = "You are an intelligent, friendly assistant that can program in Python."
+)
+
+res <- chatbot("Explain how list comprehensions work, please.")
+cat(sprintf("%s\n", res$content))
+
+```
+
+If we don't understand the output, we can say:
+
+```{r}
+res1 <- chatbot("But what is a 'yield'?")
+cat(sprintf("%s\n", res1$content))
+```
+
+## Using Language Models For Data Science
+
+There are two ways, embeddings and using the language model's output.
+
+### Embeddings
+
+Language models have to transform their data into numbers in order to actually do their jobs. This is the first stage of processing that the input text gets when it is fed into the model and it is called "embedding." It's called an embedding because it **embeds free text into a representation that's useful for the neural network**. The embeddings are learned as part of the training process and consequently they contain a lot of information about the text passed in, but unlike text, they can be used as vectors (approximately) and are thus amenable to many of the methods we discussed in class. We can get embeddings from our llama_cp model like this:
+
+Before running, do the following on your terminal `ollama pull nomic-embed-text`.
+```{r}
+library(httr)
+library(jsonlite)
+
+embeddings <- function(base_url, model, input, api_key = NULL, path = "/embeddings", extra = list()) {
+  url <- paste0(base_url, path)
+  headers <- list(`Content-Type` = "application/json")
+  if (!is.null(api_key) && nzchar(api_key)) {
+    headers$Authorization <- paste("Bearer", api_key)
+  }
+  body <- c(list(model = model, input = input), extra)
+  res <- httr::POST(url, do.call(httr::add_headers, headers), body = jsonlite::toJSON(body, auto_unbox = TRUE))
+  parsed <- jsonlite::fromJSON(httr::content(res, as = "text", encoding = "UTF-8"))
+  if (!is.null(parsed$data)) {
+    if (is.data.frame(parsed$data) && "embedding" %in% names(parsed$data)) return(parsed$data$embedding)
+    if (is.list(parsed$data)) return(lapply(parsed$data, function(x) x$embedding))
+  }
+  parsed
+}
+
+embeddings_factory <- function(base_url, model, api_key = NULL, path = "/embeddings", extra = list()) {
+  force(base_url); force(model); force(api_key); force(path); force(extra)
+  function(input, ...) {
+    embeddings(
+      base_url = base_url,
+      model = model,
+      input = input,
+      api_key = api_key,
+      path = path,
+      extra = modifyList(extra, list(...))
+    )
+  }
+}
+
+embedding_request <- function(model, inputs, provider = c("openai", "ollama"), base_url = NULL) {
+  provider <- match.arg(provider)
+  if (is.null(base_url)) base_url <- if (provider == "openai") "https://api.openai.com/v1" else "http://localhost:11434/v1"
+  embeddings(
+    base_url = base_url,
+    model = model,
+    input = inputs,
+    api_key = if (provider == "openai") Sys.getenv("OPENAI_API_KEY") else NULL
+  )
+}
+
+use_openai <- FALSE
+base_url <- if (use_openai) "https://api.openai.com/v1" else "http://localhost:11434/v1"
+api_key <- if (use_openai) Sys.getenv("OPENAI_API_KEY") else NULL
+model_name <- if (use_openai) "text-embedding-3-small" else "nomic-embed-text"
+
+embed <- embeddings_factory(base_url = base_url, model = model_name, api_key = api_key)
+
+emb <- embed(c(
+  "It was the best of times.",
+  "It was the worst of times."
+))
+
+txt <- jsonlite::toJSON(emb, auto_unbox = TRUE)
+print(substr(txt, 1, 300))
+```
+Data science is all about dimensionality reduction, and clustering, and classification, and all of those things need numbers, and the embeddings give us numbers for text, which is great, we can do stuff with it.
+
+### Calculating Embeddings for Each Paragraph
+
+```{r}
+library(httr)
+library(tokenizers)
+
+fetch_and_split_paragraphs <- function(url) {
+  response <- httr::GET(url)
+  text <- httr::content(response, as = "text", encoding = "UTF-8")
+  text <- gsub("\r\n", "\n", text)
+  text <- gsub("\r", "\n", text)
+  tokenize_paragraphs(text, paragraph_break = "\n\n", simplify = TRUE)
+}
+
+tnl_paragraphs <- fetch_and_split_paragraphs("https://www.gutenberg.org/cache/epub/10662/pg10662.txt")
+head(tnl_paragraphs)
+
+es <- embed(tnl_paragraphs[1:10])
+print(substr(jsonlite::toJSON(es, auto_unbox = TRUE), 1, 200))
+```
+
+We have something like 2,300 paragraphs and each one of them now is a vector in a 500-dimensional space.
+
+```{r}
+library(jsonlite)
+library(digest)
+
+CACHE_DIR <- "embedding_cache"
+if (!dir.exists(CACHE_DIR)) dir.create(CACHE_DIR)
+
+get_cache_path <- function(text) file.path(CACHE_DIR, paste0(digest(text, algo = "md5"), ".json"))
+
+get_embedding <- function(text, model = model_name) {
+  cache_path <- get_cache_path(text)
+  if (file.exists(cache_path)) return(jsonlite::fromJSON(cache_path))
+  vec <- embed(text)[[1]]
+  write(jsonlite::toJSON(vec, auto_unbox = TRUE), cache_path)
+  vec
+}
+
+print(length(tnl_paragraphs))
+tnl_paragraphs <- tnl_paragraphs[nchar(tnl_paragraphs) > 50]
+print(length(tnl_paragraphs))
+
+embeddings <- lapply(tnl_paragraphs, get_embedding)
+
+```
+
+Now, we can do things with this - like PCA!
+```{r}
+library(ggplot2)
+
+chunk_and_average_embeddings <- function(embeddings, paragraphs, chunk_size = 30) {
+  chunked_embeddings <- list()
+  chunked_paragraphs <- character()
+  n <- length(embeddings)
+  for (i in seq(1, n, by = chunk_size)) {
+    idx <- i:min(i + chunk_size - 1, n)
+    mats <- lapply(embeddings[idx], function(x) {
+      v <- suppressWarnings(as.numeric(unlist(x)))
+      if (any(is.na(v) | is.infinite(v))) return(NULL)
+      v
+    })
+    mats <- mats[!sapply(mats, is.null)]
+    if (length(mats) == 0) next
+    mat <- do.call(rbind, mats)
+    avg_embedding <- colMeans(mat, na.rm = TRUE)
+    chunked_embeddings[[length(chunked_embeddings) + 1]] <- avg_embedding
+    chunked_paragraphs <- c(chunked_paragraphs, paragraphs[i])
+  }
+  list(chunked_embeddings, chunked_paragraphs)
+}
+
+tmp <- chunk_and_average_embeddings(embeddings, tnl_paragraphs, chunk_size = 10)
+avg_embeddings <- tmp[[1]]
+avg_paragraphs <- tmp[[2]]
+
+mat <- do.call(rbind, avg_embeddings)
+mat <- mat[complete.cases(mat), ]
+
+pca <- prcomp(mat, center = TRUE, scale. = TRUE)
+coords <- as.data.frame(pca$x[, 1:2])
+names(coords) <- c("x", "y")
+coords$paragraph <- avg_paragraphs[seq_len(nrow(coords))]
+coords$seq <- seq_len(nrow(coords))
+
+print(ggplot(coords, aes(x = x, y = y)) +
+  geom_point(color = "navy", alpha = 0.6) +
+  geom_path(aes(group = 1), color = "orange", alpha = 0.5) +
+  ggtitle("PCA of Averaged Embeddings with Sequential Line Connection") +
+  xlab("PC1") + ylab("PC2"))
+```
+More agressive dimensionality reduction...
+```{r}
+library(Rtsne)
+library(ggplot2)
+library(viridis)
+
+chunk_and_average_embeddings <- function(embeddings, paragraphs, chunk_size = 10) {
+  chunked_embeddings <- list()
+  chunked_paragraphs <- character()
+  n <- length(embeddings)
+  for (i in seq(1, n, by = chunk_size)) {
+    idx <- i:min(i + chunk_size - 1, n)
+    mats <- lapply(embeddings[idx], function(x) {
+      v <- suppressWarnings(as.numeric(unlist(x)))
+      if (any(is.na(v) | is.infinite(v))) return(NULL)
+      v
+    })
+    mats <- mats[!sapply(mats, is.null)]
+    if (length(mats) == 0) next
+    mat <- do.call(rbind, mats)
+    avg_embedding <- colMeans(mat, na.rm = TRUE)
+    chunked_embeddings[[length(chunked_embeddings) + 1]] <- avg_embedding
+    chunked_paragraphs <- c(chunked_paragraphs, paragraphs[i])
+  }
+  list(chunked_embeddings, chunked_paragraphs)
+}
+
+tmp <- chunk_and_average_embeddings(embeddings, tnl_paragraphs, chunk_size = 10)
+avg_embeddings <- tmp[[1]]
+avg_paragraphs <- tmp[[2]]
+avg_mat <- do.call(rbind, avg_embeddings)
+avg_mat <- avg_mat[complete.cases(avg_mat), ]
+
+tsne <- Rtsne::Rtsne(avg_mat, dims = 2, perplexity = 30, verbose = FALSE)
+coords <- as.data.frame(tsne$Y)
+names(coords) <- c("x", "y")
+coords$index <- seq_len(nrow(coords))
+
+print(ggplot(coords, aes(x = x, y = y)) +
+  geom_point(color = "navy", alpha = 0.6) +
+  geom_path(aes(color = index, group = 1), linewidth = 1) +
+  scale_color_viridis_c() +
+  ggtitle("t-SNE of Averaged Embeddings with Sequential Color Gradient Line") +
+  xlab("t-SNE 1") + ylab("t-SNE 2"))
+```
+
