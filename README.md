@@ -153,6 +153,9 @@ ssh -T git@github.com
 ```
 The first time you do this, it'll ask if you want to continue connecting. Type `yes`, then it'll have you put in the passcode you set earlier. If it worked, you'll see a message that says you successfully authenticated.  
 
+## Lecture 19 - Intro to Docker
+Please go through the notes to get Docker running on your local computer. This can't be run on Binder!
+
 ## Lecture 18 - Intro to Unix/Shells
 All the notes are in `intro_to_unix_shell.ipynb`. Install Docker using the instructions in `docker_install.md`.  
 
