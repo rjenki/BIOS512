@@ -153,6 +153,9 @@ ssh -T git@github.com
 ```
 The first time you do this, it'll ask if you want to continue connecting. Type `yes`, then it'll have you put in the passcode you set earlier. If it worked, you'll see a message that says you successfully authenticated.  
 
+## Lecture 20 - Intro to Shiny
+Added notes and all the R code and shell scripts, excluding the last example. That should be coming soon. One file contains the full notes, and one contains only examples and how to run them.  
+
 ## Lecture 19 - Intro to Docker
 Please go through the notes to get Docker running on your local computer. This can't be run on Binder!
 
