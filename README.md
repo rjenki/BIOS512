@@ -153,6 +153,9 @@ ssh -T git@github.com
 ```
 The first time you do this, it'll ask if you want to continue connecting. Type `yes`, then it'll have you put in the passcode you set earlier. If it worked, you'll see a message that says you successfully authenticated.  
 
+## Lecture 22 - Project Help 2
+The same project help notes apply. In the first one, we went through an NFL data set. For this one, we went through a electricity-price dataset. Both sessions had the same general workflow. Recording is on Canvas in the Panopto tab.
+
 ## Lecture 21 - Project Help 1
 The Markdown file summarizes what we went over. The class recording is on Canvas in the Panopto tab.
 
